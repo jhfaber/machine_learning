@@ -48,15 +48,19 @@ class ExternalDatasets:
 #is a rule for calculating an estimate of a given queantify based on observed data
 #In scikit-learn, an stimator for classification is a Python object that implements the methods fit(X,y) and predict(T)
 
-#fit, usually takes some samples X, targets y if the model is supervised, and potencially sample_weight, it should estimate an sotre model sttributes
+#fit, usually TRAINING, takes some samples X, targets y if the model is supervised, and potencially sample_weight, it should estimate an sotre model sttributes
 #fit_predict, Used for unsupervised, transductive estimator, fits a model an return predictions, they are store in labels_is, .fit(X).predict(X)
 #fit_transform, transforms which fits and returns transformed training data, to float64
 #transforn, transform fit(X), ouput is an array or sparce matrix
+#predict, PREDICT WHICH LABEL WILL BE THE DATA
 
 class Estimator:
     # CLASIFICATION 
 
-
+    def ciclo(self):
+        #primero se entrena con fit(X,y) X la muestra y y los target
+        #Luego se predice predict 
+        pass
     # methods fit, predict
 
     # FIT RECEIBE DATA AN TARGET
