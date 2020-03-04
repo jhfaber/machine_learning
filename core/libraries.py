@@ -40,7 +40,7 @@ class ExternalDatasets:
         self.digits =datasets.load_digits()
         return self.digits 
     def show_img_digits(self,x):
-        plt.figure(1, figsize=(3, 3))
+        plt.figure(1, figsize=(3, 3))# se puede eliminar
         plt.imshow(self.digits.images[x], cmap=plt.cm.gray_r, interpolation='nearest')
         plt.show()
 
@@ -76,7 +76,10 @@ class Estimator:
 # https://scikit-learn.org/stable/modules/model_evaluation.html
 # EVALUATION MODEL
 
+#MEASURING MODEL PERFORMACE
+#ACCURACY IS A COMMONLY USED METRIC (NUMBER OF CORRECT PREDICTIONS )
 
+#separate train/test split data for training and testing
 
 class ModelEvaluation:
     # y_true1d array-like, or label indicator array / sparse matrix
@@ -86,6 +89,13 @@ class ModelEvaluation:
     # Estimated targets as returned by a classifier.
     def classificationreport(self):
         pass
+    
+    def train_test_split():
+        from sklearn.mode_selection import train_test_split
+
+        X_train,X_test,y_train, y_test = 
+
+
 
 
 
