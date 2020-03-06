@@ -122,10 +122,17 @@ class Model:
     #can be used to select important features of a dataset
     def lasso_regression():
         from sklearn.linear_model import Lasso 
-        lasso = Lasso(alpha=0.1,normalizae= True)
+        lasso = Lasso(alpha=0.1,normalize= True)
         lasso.fit(X_train,y_train)
         lasso_predict(X_test)
         lasso.score(X_test,y_test)
+
+        print(lasso.coef_) # coeficientes show
+        #plot coefficients
+        plt.plot(range(len(df_columns)), lasso_coef)
+        plt.xticks(range(len(df_columns)), df_columns.values, rotation=60)
+        plt.margins(0.02)
+        plt.show()
 
 
     
@@ -137,7 +144,20 @@ class Model:
     def cross_validation():
         pass
 
+def display_plot(cv_scores, cv_scores_std):
+    fig = plt.figure()
+    ax = fig.add_subplot(1,1,1)
+    ax.plot(alpha_space, cv_scores)
 
+    std_error = cv_scores_std / np.sqrt(10)
+
+    ax.fill_between(alpha_space, cv_scores + std_error, cv_scores - std_error, alpha=0.2)
+    ax.set_ylabel('CV Score +/- Std Error')
+    ax.set_xlabel('Alpha')
+    ax.axhline(np.max(cv_scores), linestyle='--', color='.5')
+    ax.set_xlim([alpha_space[0], alpha_space[-1]])
+    ax.set_xscale('log')
+    plt.show()
 class EvaluatingModel:
     def cross_validation():
         from sklearn.model_selection import cross_val_score
