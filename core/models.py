@@ -195,6 +195,8 @@ class Model:
         plt.show()
 
 
+
+
 def display_plot(cv_scores, cv_scores_std):
     fig = plt.figure()
     ax = fig.add_subplot(1,1,1)
@@ -218,6 +220,26 @@ class EvaluatingModel:
         from sklearn.model_selection import cross_val_score
         #reg linear regresion model
         cv_results = cross_val_score(reg,X,y,cv=5) # 5 muestras de la data, devuelve 5 arrays
+
+    def fun_auc_scoring():
+        # Import necessary modules
+        from sklearn.metrics import roc_auc_score
+        from sklearn.model_selection import cross_val_score
+
+        # Compute predicted probabilities: y_pred_prob
+        y_pred_prob = logreg.predict_proba(X_test)[:,1]
+        # print(y_pred_prob)
+        # Compute and print AUC score
+        print("AUC: {}".format(roc_auc_score(y_test, y_pred_prob)))
+
+        # Compute cross-validated AUC scores: cv_auc
+        cv_auc = cross_val_score(logreg,X,y,scoring='roc_auc', cv=5)
+
+        # Print list of AUC scores
+        print("AUC scores computed using 5-fold cross-validation: {}".format(cv_auc))
+
+
+
 
 
 
