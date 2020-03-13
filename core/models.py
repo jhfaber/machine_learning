@@ -46,8 +46,18 @@ class Model:
         # Fit the classifier to the training data
         knn.fit(X_train, y_train)
 
+        #predict
+        y_pred = knn.predict(X_test)
+
+
+        #REULTS
         # Print the accuracy
         print(knn.score(X_test, y_test))
+
+
+        from sklearn.metrics import confusion_matrix, classification_report
+        print(confusion_matrix(y_test, y_pred))
+        print(classification_report(y_test, y_pred))
 
         ###########################################
         # scores data entranada vs data test
@@ -144,6 +154,49 @@ class Model:
     def cross_validation():
         pass
 
+    def fun_LogisticRegression():
+        # Import the necessary modules
+        from sklearn.linear_model import LogisticRegression
+        from sklearn.metrics import confusion_matrix, classification_report
+
+        # Create training and test sets
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.4, random_state=42)
+
+        # Create the classifier: logreg
+        logreg = LogisticRegression()
+
+        # Fit the classifier to the training data
+        logreg.fit(X_train,y_train)
+
+
+        # Predict the labels of the test set: y_pred
+        y_pred = logreg.predict(X_test)
+
+        # Compute and print the confusion matrix and classification report
+        print(confusion_matrix(y_test, y_pred))
+        print(classification_report(y_test, y_pred))
+
+    def fun_LogisticRegression2():#PREDICT PROB, ROC CURVE
+        # Import necessary modules
+        from sklearn.metrics import roc_curve
+
+        # Compute predicted probabilities: y_pred_prob
+        y_pred_prob = logreg.predict_proba(X_test)[:,1]
+
+        # Generate ROC curve values: fpr, tpr, thresholds
+        fpr, tpr, thresholds = roc_curve(y_test, y_pred_prob)
+
+        # Plot ROC curve
+        plt.plot([0, 1], [0, 1], 'k--')
+        plt.plot(fpr, tpr)
+        plt.xlabel('False Positive Rate')
+        plt.ylabel('True Positive Rate')
+        plt.title('ROC Curve')
+        plt.show()
+
+
+
+
 def display_plot(cv_scores, cv_scores_std):
     fig = plt.figure()
     ax = fig.add_subplot(1,1,1)
@@ -161,16 +214,41 @@ def display_plot(cv_scores, cv_scores_std):
 
 
 
+<<<<<<< HEAD
 #ACCURACY
 #CONFUSION MATRIX, 
+=======
+
+>>>>>>> a8100f88fe9585a7055496e7e104a6028bb37f08
 class EvaluatingModel:
     def cross_validation():
         from sklearn.model_selection import cross_val_score
         #reg linear regresion model
         cv_results = cross_val_score(reg,X,y,cv=5) # 5 muestras de la data, devuelve 5 arrays
 
+<<<<<<< HEAD
     def confusionmatrix():
         confusion_matrix(x,y)
+=======
+    def fun_auc_scoring():
+        # Import necessary modules
+        from sklearn.metrics import roc_auc_score
+        from sklearn.model_selection import cross_val_score
+
+        # Compute predicted probabilities: y_pred_prob
+        y_pred_prob = logreg.predict_proba(X_test)[:,1]
+        # print(y_pred_prob)
+        # Compute and print AUC score
+        print("AUC: {}".format(roc_auc_score(y_test, y_pred_prob)))
+
+        # Compute cross-validated AUC scores: cv_auc
+        cv_auc = cross_val_score(logreg,X,y,scoring='roc_auc', cv=5)
+
+        # Print list of AUC scores
+        print("AUC scores computed using 5-fold cross-validation: {}".format(cv_auc))
+
+
+>>>>>>> a8100f88fe9585a7055496e7e104a6028bb37f08
 
 
 
