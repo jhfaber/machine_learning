@@ -158,15 +158,25 @@ def display_plot(cv_scores, cv_scores_std):
     ax.set_xlim([alpha_space[0], alpha_space[-1]])
     ax.set_xscale('log')
     plt.show()
+
+
+
+#ACCURACY
+#CONFUSION MATRIX, 
 class EvaluatingModel:
     def cross_validation():
         from sklearn.model_selection import cross_val_score
         #reg linear regresion model
         cv_results = cross_val_score(reg,X,y,cv=5) # 5 muestras de la data, devuelve 5 arrays
 
+    def confusionmatrix():
+        confusion_matrix(x,y)
 
 
 
+
+
+#example plot several ste and mean scores
     # Import necessary modules
 from sklearn.linear_model import Ridge
 from sklearn.model_selection import cross_val_score
