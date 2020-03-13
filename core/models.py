@@ -237,13 +237,22 @@ def display_plot(cv_scores, cv_scores_std):
 
 
 
+<<<<<<< HEAD
+#ACCURACY
+#CONFUSION MATRIX, 
+=======
 
+>>>>>>> a8100f88fe9585a7055496e7e104a6028bb37f08
 class EvaluatingModel:
     def cross_validation():
         from sklearn.model_selection import cross_val_score
         #reg linear regresion model
         cv_results = cross_val_score(reg,X,y,cv=5) # 5 muestras de la data, devuelve 5 arrays
 
+<<<<<<< HEAD
+    def confusionmatrix():
+        confusion_matrix(x,y)
+=======
     def fun_auc_scoring():
         # Import necessary modules
         from sklearn.metrics import roc_auc_score
@@ -262,11 +271,13 @@ class EvaluatingModel:
         print("AUC scores computed using 5-fold cross-validation: {}".format(cv_auc))
 
 
+>>>>>>> a8100f88fe9585a7055496e7e104a6028bb37f08
 
 
 
 
 
+#example plot several ste and mean scores
     # Import necessary modules
 from sklearn.linear_model import Ridge
 from sklearn.model_selection import cross_val_score
