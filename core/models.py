@@ -194,7 +194,7 @@ class Model:
         plt.title('ROC Curve')
         plt.show()
 
-    #find best parameters
+    #find best tuning parameters
     def fun_grid_search():
         # Import necessary modules
         from sklearn.model_selection import GridSearchCV
@@ -218,6 +218,33 @@ class Model:
         print("Best score is {}".format(logreg_cv.best_score_))
 
 
+    
+    def fun_decision_tree_best_parameters():
+        # Import necessary modules
+        from scipy.stats import randint
+        from sklearn.model_selection import RandomizedSearchCV
+        from sklearn.tree import DecisionTreeClassifier
+
+        # Setup the parameters and distributions to sample from: param_dist
+        param_dist = {"max_depth": [3, None],
+                    "max_features": randint(1, 9),
+                    "min_samples_leaf": randint(1, 9),
+                    "criterion": ["gini", "entropy"]}
+
+        # Instantiate a Decision Tree classifier: tree
+        tree = DecisionTreeClassifier()
+
+        # Instantiate the RandomizedSearchCV object: tree_cv
+        tree_cv = RandomizedSearchCV(tree, param_dist, cv=5)
+
+        # Fit it to the data
+        tree_cv.fit(X,y)
+
+        # Print the tuned parameters and score
+        print("Tuned Decision Tree Parameters: {}".format(tree_cv.best_params_))
+        print("Best score is {}".format(tree_cv.best_score_))
+
+
 
 
 def display_plot(cv_scores, cv_scores_std):
@@ -237,22 +264,16 @@ def display_plot(cv_scores, cv_scores_std):
 
 
 
-<<<<<<< HEAD
 #ACCURACY
 #CONFUSION MATRIX, 
-=======
-
->>>>>>> a8100f88fe9585a7055496e7e104a6028bb37f08
 class EvaluatingModel:
     def cross_validation():
         from sklearn.model_selection import cross_val_score
         #reg linear regresion model
         cv_results = cross_val_score(reg,X,y,cv=5) # 5 muestras de la data, devuelve 5 arrays
 
-<<<<<<< HEAD
     def confusionmatrix():
         confusion_matrix(x,y)
-=======
     def fun_auc_scoring():
         # Import necessary modules
         from sklearn.metrics import roc_auc_score
@@ -271,7 +292,35 @@ class EvaluatingModel:
         print("AUC scores computed using 5-fold cross-validation: {}".format(cv_auc))
 
 
->>>>>>> a8100f88fe9585a7055496e7e104a6028bb37f08
+    def fun_holdout_set():
+        # Import necessary modules
+        from sklearn.model_selection import train_test_split
+        from sklearn.linear_model import LogisticRegression
+        from sklearn.model_selection import GridSearchCV
+
+        # Create the hyperparameter grid
+        c_space = np.logspace(-5, 8, 15)
+        param_grid = {"C": c_space, "penalty": ['l1', 'l2']}
+
+        # Instantiate the logistic regression classifier: logreg
+        logreg = LogisticRegression()
+
+        # Create train and test sets
+        X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.4,random_state=42,)
+
+        # Instantiate the GridSearchCV object: logreg_cv
+        logreg_cv = GridSearchCV(logreg,param_grid,cv=5)
+
+        # Fit it to the training data
+        logreg_cv.fit(X_train,y_train)
+
+        # Print the optimal parameters and best score
+        print("Tuned Logistic Regression Parameter: {}".format(logreg_cv.best_params_))
+        print("Tuned Logistic Regression Accuracy: {}".format(logreg_cv.best_score_))
+
+
+
+
 
 
 
