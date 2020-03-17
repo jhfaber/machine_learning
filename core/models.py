@@ -194,56 +194,6 @@ class Model:
         plt.title('ROC Curve')
         plt.show()
 
-    #find best tuning parameters
-    def fun_grid_search():
-        # Import necessary modules
-        from sklearn.model_selection import GridSearchCV
-        from sklearn.linear_model import LogisticRegression
-
-        # Setup the hyperparameter grid
-        c_space = np.logspace(-5, 8, 15)
-        param_grid = {'C': c_space}
-
-        # Instantiate a logistic regression classifier: logreg
-        logreg = LogisticRegression()
-
-        # Instantiate the GridSearchCV object: logreg_cv
-        logreg_cv = GridSearchCV(logreg, param_grid, cv=5)
-
-        # Fit it to the data
-        logreg_cv.fit(X,y)
-
-        # Print the tuned parameters and score
-        print("Tuned Logistic Regression Parameters: {}".format(logreg_cv.best_params_)) 
-        print("Best score is {}".format(logreg_cv.best_score_))
-
-
-    
-    def fun_decision_tree_best_parameters():
-        # Import necessary modules
-        from scipy.stats import randint
-        from sklearn.model_selection import RandomizedSearchCV
-        from sklearn.tree import DecisionTreeClassifier
-
-        # Setup the parameters and distributions to sample from: param_dist
-        param_dist = {"max_depth": [3, None],
-                    "max_features": randint(1, 9),
-                    "min_samples_leaf": randint(1, 9),
-                    "criterion": ["gini", "entropy"]}
-
-        # Instantiate a Decision Tree classifier: tree
-        tree = DecisionTreeClassifier()
-
-        # Instantiate the RandomizedSearchCV object: tree_cv
-        tree_cv = RandomizedSearchCV(tree, param_dist, cv=5)
-
-        # Fit it to the data
-        tree_cv.fit(X,y)
-
-        # Print the tuned parameters and score
-        print("Tuned Decision Tree Parameters: {}".format(tree_cv.best_params_))
-        print("Best score is {}".format(tree_cv.best_score_))
-
 
 
 
@@ -264,16 +214,12 @@ def display_plot(cv_scores, cv_scores_std):
 
 
 
-#ACCURACY
-#CONFUSION MATRIX, 
 class EvaluatingModel:
     def cross_validation():
         from sklearn.model_selection import cross_val_score
         #reg linear regresion model
         cv_results = cross_val_score(reg,X,y,cv=5) # 5 muestras de la data, devuelve 5 arrays
 
-    def confusionmatrix():
-        confusion_matrix(x,y)
     def fun_auc_scoring():
         # Import necessary modules
         from sklearn.metrics import roc_auc_score
@@ -292,35 +238,6 @@ class EvaluatingModel:
         print("AUC scores computed using 5-fold cross-validation: {}".format(cv_auc))
 
 
-    def fun_holdout_set():
-        # Import necessary modules
-        from sklearn.model_selection import train_test_split
-        from sklearn.linear_model import LogisticRegression
-        from sklearn.model_selection import GridSearchCV
-
-        # Create the hyperparameter grid
-        c_space = np.logspace(-5, 8, 15)
-        param_grid = {"C": c_space, "penalty": ['l1', 'l2']}
-
-        # Instantiate the logistic regression classifier: logreg
-        logreg = LogisticRegression()
-
-        # Create train and test sets
-        X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.4,random_state=42,)
-
-        # Instantiate the GridSearchCV object: logreg_cv
-        logreg_cv = GridSearchCV(logreg,param_grid,cv=5)
-
-        # Fit it to the training data
-        logreg_cv.fit(X_train,y_train)
-
-        # Print the optimal parameters and best score
-        print("Tuned Logistic Regression Parameter: {}".format(logreg_cv.best_params_))
-        print("Tuned Logistic Regression Accuracy: {}".format(logreg_cv.best_score_))
-
-
-
-
 
 
 
@@ -334,7 +251,7 @@ from sklearn.model_selection import cross_val_score
 # Setup the array of alphas and lists to store scores
 alpha_space = np.logspace(-4, 0, 50)
 ridge_scores = []
-ridge_scores_std = []
+ridge_scores_std = []    
 
 # Create a ridge regressor: ridge
 ridge = Ridge(normalize=True)
@@ -356,4 +273,37 @@ for alpha in alpha_space:
 
 # Display the plot
 display_plot(ridge_scores, ridge_scores_std)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+###################################################
+# NEW#
+#####################################
+# Hold-out set in practice II: Regression
+# Remember lasso and ridge regression from the previous chapter? Lasso used the L1 penalty to regularize, while ridge used the L2 penalty. There is another type of regularized regression known as the elastic net. In elastic net regularization, the penalty term is a linear combination of the L1 and L2 penalties:
+
+# a∗L1+b∗L2
+# In scikit-learn, this term is represented by the 'l1_ratio' parameter: An 'l1_ratio' of 1 corresponds to an L1 penalty, and anything lower is a combination of L1 and L2.
+
+# In this exercise, you will GridSearchCV to tune the 'l1_ratio' of an elastic net model trained on the Gapminder data. As in the previous exercise, use a hold-out set to evaluate your model's performance.
+
+
+
+def fun_hold_out():
+    pass
+
+
 
