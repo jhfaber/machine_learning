@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #Centering and scaling
 def fun_scaling_data():
     #standarization: substract the mean and divide by variance
@@ -43,3 +44,19 @@ def fun_scaling_pipeline():
     # Compute and print metrics
     print('Accuracy with Scaling: {}'.format(knn_scaled.score(X_test,y_test)))
     print('Accuracy without Scaling: {}'.format(knn_unscaled.score(X_test,y_test)))
+=======
+def fun_myfirstpipeline():
+    # Import the Imputer module
+    from sklearn.preprocessing import Imputer
+    from sklearn.svm import SVC
+
+    # Setup the Imputation transformer: imp
+    imp = Imputer(missing_values='NaN', strategy='most_frequent', axis=0)
+
+    # Instantiate the SVC classifier: clf
+    clf = SVC()
+
+    # Setup the pipeline with the required steps: steps
+    steps = [('imputation', imp),
+            ('SVM', clf)]
+>>>>>>> 745d093781587a948aab81d8f2da689834e84dda
